@@ -1,0 +1,78 @@
+from random import choice
+import time
+rock_wins = ("Oh no! Rock destroys my Scissors.","Well played my Scissors never stood a chance.","Rock beats a pair of metal Scissors? learn something new everyday.")
+paper_wins = ("I can't see! my Rock says its been covered by your Paper.","If only a gust of wind were around then my victory would have a reality.","My chances at losing were certainly covered by you.")
+scissor_wins = ("you cut my paper so bad  \nit cut my sentence","CUT IT OUT! let me get a slice of winning instead of sliced Paper.","Noooo my origami its been clipped to pieces by your Scissors.")
+rock_losses = ("Rough loss man that Rock was a deadweight when my Paper stopped it.","What a rudimentary sedimentary beaten by a piece of Paper.","Perhaps next time instead of just a flat of piece of Paper I'll use origrami to pick at the Rock.")
+paper_losses = ("Snip snip your Paper is now in two.","Don't fret your Paper can get used for a wondeful arts and crafts project now.","Paper so fragile even a pair of plastic scissors cuts it.")
+scissor_losses = ("You have two pieces of Scissor becuase you're a LOSER!.","You know the rules and so do i your Scissors are destroyed by my Rock so say goodbye.","Rocks as sturdy as they are powerful they even destroy your Scissors made for cutting.")
+draws = ("Think you're my equal just because we both picked the same thing? a foolish thought no doubt.","Clever its like we're in sync next time you wont be so lucky","tch! this round is a draw.")
+valid_choices = ("rock","paper","scissors")
+
+current_player_score = 0
+current_computer_score = 0
+def get_computer_choice() -> str:
+    return choice(valid_choices)
+
+def get_player_choice() -> str:
+    print()
+    player_choice = input("Please pick from the following options:\n1.Rock\n2.Paper\n3.Scissors\nPlease say the corresponding number now: ").lower()
+    print()
+    if player_choice == "rock" or player_choice == "1":
+        return "rock"
+    elif player_choice == "scissors" or player_choice == "2":
+        return "scissors"
+    elif player_choice == "paper" or player_choice == "3":
+        return "paper"
+    elif player_choice[0] == "r":
+        return "rock"
+    elif player_choice[0] == "s":
+        return "scissors"
+    elif player_choice[0] == "p":
+        return "paper"
+    else:
+        return choice(valid_choices)
+
+wants_to_play = True
+
+def play_game(player,computer) -> None:
+    global current_computer_score,current_player_score
+    if player == computer:
+        print(choice(draws))
+    elif player == "rock" and computer == "scissors":
+        print(choice(rock_wins))
+        current_player_score += 1
+    elif player == "paper" and computer == "rock":
+        print(choice(paper_wins))
+        current_player_score += 1
+    elif player == "scissors" and computer == "paper":
+        print(choice(scissor_wins))
+        current_player_score += 1
+    elif player == "rock" and computer == "paper":
+        print(choice(rock_losses))
+        current_computer_score += 1
+    elif player == "paper" and computer == "scissors":
+        print(choice(paper_losses))
+        current_computer_score += 1
+    else:
+        print(choice(scissor_losses))
+        current_computer_score += 1
+
+print("Welcome to some rock paper scissors\n")
+
+while wants_to_play:
+    play_game(get_player_choice(),get_computer_choice())
+    check = input("Would you like to play again? say no or n otherwise ill assume you wanna play more: ").lower()
+    if check == "no" or check == "n":
+        break
+    
+print("You stopped playing so ill display our scores if your score is higher than or equal to mine you win\n")
+print("This is my score : " + str(current_computer_score))
+print()
+print("This was your score: " + str(current_player_score))
+print()
+print("you win") if current_player_score>= current_computer_score else print("you lose")
+print()
+print("you have 15 seconds to read this before i close")
+time.sleep(15)
+exit()
